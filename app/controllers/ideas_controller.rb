@@ -9,6 +9,7 @@ class IdeasController < ApplicationController
   
     def create
       @idea = Idea.new idea_params
+      @idea.user = current_user
       if @idea.save
         flash[:notice] = "Idea created successfully"
         redirect_to @idea
@@ -33,7 +34,7 @@ class IdeasController < ApplicationController
   
     def update
       if @idea.update idea_params
-        redirect_to product_path(@idea)
+        redirect_to idea_path(@idea)
       else
         render :edit
       end
