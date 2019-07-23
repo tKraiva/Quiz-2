@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
         @idea = Idea.find params[:idea_id]
         @review   = Review.new review_params
         @review.idea = @idea
-        @review.user_id = current_user
+        @review.user = current_user
         if @review.save
             redirect_to idea_path(@idea), notice: 'Answer created!'
         else
