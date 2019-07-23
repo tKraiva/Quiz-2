@@ -2,6 +2,7 @@ class IdeasController < ApplicationController
 
     before_action :authenticate_user!, except: [:index, :show]
     before_action :find_product, only: [:show, :edit, :update, :destroy]
+    before_action :authorize!, only: [:edit, :update, :destroy]
 
     def new
       @idea = Idea.new
@@ -27,6 +28,10 @@ class IdeasController < ApplicationController
     end
   
     def show
+        
+        @review = Review.new
+        @likes = @idea.likes.count
+        @reviews = @idea.reviews.order(created_at: :desc)
     end
   
     def edit
@@ -56,5 +61,8 @@ class IdeasController < ApplicationController
     def find_product
       @idea = Idea.find params[:id]
     end
-  
+    
+    def authorize!
+        redirect_to "/", alert: 'Not Authorized' unless can?(:crud, @idea)
+      end
 end

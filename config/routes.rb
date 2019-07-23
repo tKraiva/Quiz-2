@@ -3,8 +3,14 @@ Rails.application.routes.draw do
 
 
   get '/' => "ideas#index"
-  resources :ideas
+  resources :ideas do
+    resources :reviews, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+  end
 
   resources :users, only: [:new, :create]
   resource :sessions, only: [:new, :destroy, :create]
+
+
+
 end

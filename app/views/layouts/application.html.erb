@@ -16,17 +16,21 @@
         Idea Factory
       </a>
         <div class="space">
+        <% if user_signed_in? %>
+        Hello <%= current_user.full_name %>,
+        <%= link_to "Logout", sessions_path, method: :delete,
+                  data: {confirm: "are you sure you want to log out?"}%>
+      <% else %>
+        <%= link_to "Login", new_sessions_path %> |
+        <%= link_to "Sign Up", new_user_path %>
+      <% end %>
+        </div>
+        <hr />
+        <div class="space">
         <%= link_to 'Home', "/" %>
         <%= link_to 'New Post', '/ideas/new' %>
         </div>
-  <% if user_signed_in? %>
-  Hello <%= current_user.full_name %>,
-  <%= link_to "Logout", sessions_path, method: :delete,
-            data: {confirm: "are you sure you want to log out?"}%>
-<% else %>
-  <%= link_to "Login", new_sessions_path %> |
-  <%= link_to "Sign Up", new_user_path %>
-<% end %>
+
 
 </nav>
 

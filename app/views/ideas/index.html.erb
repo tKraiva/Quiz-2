@@ -1,6 +1,12 @@
-<h1>All Ideas</h1>
- <% @ideas.each do |idea|  %>
-  <ul>
-    <li><%= link_to idea.title, idea_path(idea) %></li>
-  </ul>
-<% end %>
+
+<div class="post-container">
+  <% @ideas.each do |idea| %>
+    <div class="post">
+      <h2><%= link_to idea.title, idea_path(idea) %></h2>
+      <p><%= idea.description %></p>
+      <p>  Likes:<%= idea.likes.count %></p>
+      <p>By:<%=idea.user&.full_name %>  </p>
+ 
+    </div>
+  <% end %>
+</div>
